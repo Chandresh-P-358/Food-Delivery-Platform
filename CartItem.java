@@ -1,19 +1,21 @@
 package Java_Assignment_2;
 
 public class CartItem {
-	private MenuItem item;
+    private MenuItem item;
     private int quantity;
+    private double subtotal;
+    private String specialNote;
 
-    public CartItem(MenuItem item, int quantity) {
+    public CartItem(MenuItem item, int quantity, String specialNote) {
         this.item = item;
         this.quantity = quantity;
+        this.specialNote = specialNote;
+        this.subtotal = item.getPrice() * quantity;
     }
 
-    public MenuItem getItem() {
-        return item;
-    }
+    public double getSubtotal() { return subtotal; }
 
-    public int getQuantity() {
-        return quantity;
+    public void showItem() {
+        System.out.println(item.getName() + " x" + quantity + " = ₹" + subtotal);
     }
 }

@@ -1,40 +1,35 @@
 package Java_Assignment_2;
 
-import java.util.ArrayList;
+import java.util.*;
 
 public class Cart {
-	private ArrayList<CartItem> items;
-	
-	public Cart() {
-		items= new ArrayList<CartItem>();
-	}
-	public void addItem(MenuItem item,int Quantity) {
-		if(item.isAvailable()) {
-			items.add(new CartItem(item,Quantity));
-			System.out.println(Quantity+" X "+item.getName()+" added to the cart");
-		}
-		else {
-			System.out.println(item.getName() + " is not available.");
-		}
-	}
-	public void showCart() {
-		if(items.isEmpty()) {
-			System.out.println("Cart is Empty");
-		}
-		else {
-			System.out.println("Items Are in the Cart");
-			for (CartItem cartItem : items) {
-			    MenuItem item = cartItem.getItem();
-			    System.out.println(cartItem.getQuantity() + " x " + item.getName() + " - $" + item.getPrice());
-			}
+    private int cartId;
+    private Customer customer;
+    private ArrayList<CartItem> items;
+    private double totalAmount;
 
-		}
-	}
-	public double getTotal() {
-		double total =0;
-		for (CartItem cartItem : items) {
-		    total += cartItem.getItem().getPrice() * cartItem.getQuantity();
-		}
-		return total;
-	}
+    public Cart(int cartId, Customer customer) {
+        this.cartId = cartId;
+        this.customer = customer;
+        this.items = new ArrayList<>();
+        this.totalAmount = 0;
+    }
+
+    public void addItem(MenuItem item, int quantity, String note) {
+        CartItem ci = new CartItem(item, quantity, note);
+        items.add(ci);
+        totalAmount += ci.getSubtotal();
+    }
+
+    public void showCart() {
+        System.out.println("\n--- " + customer.getName() + "'s Cart ---");
+        for (CartItem c : items) {
+            c.showItem();
+        }
+        System.out.println("Total: ₹" + totalAmount);
+    }
+
+    public double getTotalAmount() {
+        return totalAmount;
+    }
 }

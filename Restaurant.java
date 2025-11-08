@@ -1,41 +1,36 @@
 package Java_Assignment_2;
 
-import java.util.ArrayList;
+import java.util.*;
 
 public class Restaurant {
-	private String name;
-	private ArrayList<MenuItem> menu;
-	
-	public Restaurant(String name){
-		this.name=name;
-		this.menu=new ArrayList<MenuItem>();
-	}
-	public String getName() {
-		return name;
-	}
-	public void addMenuItem(MenuItem item) {
-		menu.add(item);
-	}
-	public int getMenuCount() {
-		return menu.size();
-	}
-    public MenuItem getMenuItem(int index) {
-        if (index >= 0 && index < menu.size()) {
-            return menu.get(index);
-        }
-        else {
-        	return null;
+    private String name;
+    private String address;
+    private double rating;
+    private ArrayList<MenuItem> menuItems;
+
+    public Restaurant(String name, String address, double rating) {
+        this.name = name;
+        this.address = address;
+        this.rating = rating;
+        this.menuItems = new ArrayList<>();
+    }
+
+    public void addMenuItem(MenuItem item) {
+        menuItems.add(item);
+    }
+
+    public void showMenu() {
+        System.out.println("\n--- " + name + " Menu ---");
+        for (int i = 0; i < menuItems.size(); i++) {
+            MenuItem m = menuItems.get(i);
+            System.out.println((i + 1) + ". " + m.getName() + " - ₹" + m.getPrice() + " (" + m.getCategory() + ")");
         }
     }
-	public void showMenu() {
-		System.out.println("\n Menu of "+name);
-		for(int i=0;i<menu.size();i++) {
-			MenuItem item = menu.get(i);
-			System.out.println((i+1)+". "+item.getName()+" - $ "+item.getPrice());
-			if(!item.isAvailable()) {
-				System.out.print(item.getName()+" (Not Available) ");
-			}
-			System.out.println();
-		}
-	}
+
+    public MenuItem getMenuItem(int index) {
+        if (index >= 0 && index < menuItems.size()) {
+            return menuItems.get(index);
+        }
+        return null;
+    }
 }
